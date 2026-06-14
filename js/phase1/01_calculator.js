@@ -1,8 +1,3 @@
-// =========================================================================
-// Sheryians Coding School - Frontend Cohort 3.0
-// JS Phase 1: Mini-Project 1 — Simple Calculator
-// =========================================================================
-
 const prompt = require('prompt-sync')();
 let n1 = Number(prompt("Enter the first number: "));
 let n2 = Number(prompt("Enter the second number: "));
