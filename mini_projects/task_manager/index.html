@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined"
+    />
+
+    <link rel="stylesheet" href="style.css" />
+
+    <title>Task Manager</title>
+  </head>
+
+  <body>
+    <div class="layout">
+      <aside class="sidebar">
+        <div class="sidebar-top">
+          <button id="menuBtn">
+            <span class="material-symbols-outlined">menu</span>
+          </button>
+        </div>
+
+        <ul class="nav">
+          <li class="active">
+            <span class="material-symbols-outlined">checklist</span>
+            <span class="text">My Tasks</span>
+          </li>
+
+          <li>
+            <span class="material-symbols-outlined">settings</span>
+            <span class="text">Settings</span>
+          </li>
+        </ul>
+      </aside>
+
+      <main class="content">
+        <div class="topbar">
+          <button id="themeToggle">
+            <span class="material-symbols-outlined">dark_mode</span>
+          </button>
+        </div>
+
+        <div class="page-title">
+          <h1>My Tasks</h1>
+        </div>
+        <div class="task-input">
+          <form action="" class="task-input">
+            <input type="text" placeholder="Type your task here..." />
+            
+            <select id="taskCategory" class="task-category-select">
+              <option value="general">General</option>
+              <option value="work">Work</option>
+              <option value="personal">Personal</option>
+              <option value="shopping">Shopping</option>
+            </select>
+
+            <button id="submit">
+              <span class="material-symbols-outlined">add</span>
+              Add
+            </button>
+          </form>
+        </div>
+
+        <div class="empty-state">
+          <img src="./assets/icon_light.svg" alt="empty" class="empty-img" />
+
+          <div class="empty-text">
+            Empty as my motivation on Monday <br />
+            Let’s start adding stuff!
+          </div>
+        </div>
+
+        <div class="task-controls">
+          <select id="filterCategory" class="task-filter-select">
+            <option value="all">All Categories</option>
+            <option value="general">General</option>
+            <option value="work">Work</option>
+            <option value="personal">Personal</option>
+            <option value="shopping">Shopping</option>
+          </select>
+        </div>
+
+        <div class="tasks-state">
+          <ul class="task-list"></ul>
+        </div>
+      </main>
+    </div>
+  </body>
+  <script src="script.js"></script>
+</html>

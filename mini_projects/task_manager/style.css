@@ -1,0 +1,431 @@
+html,
+body {
+  overflow-x: hidden;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+.layout {
+  display: flex;
+  min-height: 100vh;
+  overflow-x: hidden;
+  width: 100%;
+}
+
+.sidebar {
+  width: 250px;
+  background: #fff;
+  border-right: 1px solid #eee;
+  transition: 0.3s;
+}
+
+.sidebar.collapsed {
+  width: 70px;
+}
+
+.sidebar-top {
+  padding: 15px;
+}
+
+#menuBtn {
+  all: unset;
+  cursor: pointer;
+}
+
+.nav {
+  list-style: none;
+  padding: 10px;
+}
+
+.nav li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.nav li:hover {
+  background: #f3f3f3;
+}
+
+.sidebar.collapsed .text {
+  display: none;
+}
+
+.content {
+  flex: 1;
+  background: #f6f6f6;
+  padding: 25px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: flex-end;
+}
+
+#themeToggle {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.material-symbols-outlined {
+  font-size: 28px;
+}
+
+.page-title {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.empty-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+  margin-top: 60px;
+}
+
+.empty-state img {
+  width: 100%;
+  max-width: 30rem;
+}
+
+body.dark {
+  background: #121212;
+  color: #fff;
+}
+
+body.dark .sidebar {
+  background: #1e1e1e;
+  border-color: #333;
+}
+
+body.dark .content {
+  background: #121212;
+}
+
+body.dark .nav li:hover {
+  background: #2a2a2a;
+}
+
+.task-input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.task-input input {
+  width: 100%;
+  max-width: 500px;
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+}
+
+.task-input button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 8px;
+  background: #000;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.task-input .material-symbols-outlined {
+  font-size: 20px;
+}
+
+body.dark .task-input input {
+  background: #1e1e1e;
+  border-color: #333;
+  color: #fff;
+}
+
+body.dark .task-input button {
+  background: #fff;
+  color: #000;
+}
+
+.tasks-state {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+  width: 100%;
+}
+
+.task-list {
+  list-style: none;
+  width: 100%;
+  max-width: 400px;
+}
+
+.task-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  padding: 14px 16px;
+  margin-bottom: 12px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  transition: 0.2s ease;
+}
+
+.task-item:hover {
+  transform: translateY(-2px);
+}
+
+.task-text {
+  font-size: 15px;
+  color: #333;
+  flex: 1;
+  word-break: break-word;
+  padding: 0 10px;
+}
+
+.task-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.task-actions button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.task-actions .material-symbols-outlined {
+  font-size: 22px;
+  color: #555;
+  transition: 0.2s;
+}
+
+.task-actions .edit:hover {
+  color: #1976d2;
+}
+
+.task-actions .done:hover {
+  color: #2e7d32;
+}
+
+.task-actions .delete:hover {
+  color: #d32f2f;
+}
+
+body.dark .task-item {
+  background: #1e1e1e;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .task-text {
+  color: #fff;
+}
+
+body.dark .task-actions .material-symbols-outlined {
+  color: #ccc;
+}
+
+.check {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.check input {
+  display: none;
+}
+
+.check .box {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #999;
+  border-radius: 6px;
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+  transition: 0.2s;
+}
+
+.check input:checked + .box {
+  background: #4caf50;
+  border-color: #4caf50;
+}
+
+.check input:checked + .box::after {
+  content: "✔";
+  position: absolute;
+  top: -2px;
+  left: 3px;
+  font-size: 14px;
+  color: #fff;
+}
+
+.task-item[data-status="true"] .task-text,
+.check input:checked ~ .task-text {
+  text-decoration: line-through;
+  color: #888;
+}
+
+body.dark .check .box {
+  border-color: #666;
+}
+
+body.dark .check input:checked + .box {
+  background: #66bb6a;
+  border-color: #66bb6a;
+}
+
+body.dark .task-text {
+  color: #fff;
+}
+
+body.dark .task-item[data-status="true"] .task-text,
+body.dark .check input:checked ~ .task-text {
+  color: #777;
+}
+
+.task-category-select {
+  padding: 10px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-family: "Poppins", sans-serif;
+  background: #fff;
+  cursor: pointer;
+}
+
+body.dark .task-category-select {
+  background: #1e1e1e;
+  border-color: #333;
+  color: #fff;
+}
+
+.task-category-badge {
+  font-size: 11px;
+  background: #eee;
+  padding: 2px 6px;
+  border-radius: 6px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-right: 8px;
+  color: #555;
+}
+
+body.dark .task-category-badge {
+  background: #333;
+  color: #ccc;
+}
+
+.task-controls {
+  display: flex;
+  justify-content: center;
+  margin: 15px 0 5px 0;
+}
+
+.task-filter-select {
+  padding: 8px 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  outline: none;
+  font-family: 'Poppins', sans-serif;
+  background: #fff;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+body.dark .task-filter-select {
+  background: #1e1e1e;
+  border-color: #333;
+  color: #fff;
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -260px;
+    width: 260px;
+    height: 100vh;
+    background: #fff;
+    z-index: 1000;
+    transition: 0.3s ease;
+    box-shadow: 5px 0 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .sidebar.active {
+    left: 0;
+  }
+
+  .sidebar-top {
+    position: absolute;
+    top: 20px;
+    right: -55px;
+    z-index: 1001;
+    padding: 0;
+    transition: 0.3s ease;
+  }
+
+  .sidebar.active .sidebar-top {
+    right: auto;
+    left: 20px;
+  }
+
+  .sidebar .nav {
+    margin-top: 70px;
+  }
+
+  .topbar {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+  }
+
+  .content {
+    padding: 80px 20px 20px 20px;
+    width: 100%;
+  }
+
+  .layout {
+    flex-direction: column;
+  }
+
+  .task-input {
+    flex-direction: row;
+    width: 100%;
+    padding: 0 10px;
+  }
+
+  .task-input input {
+    width: 100%;
+  }
+
+  .empty-state {
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 40px;
+    text-align: center;
+  }
+
+  .empty-state img {
+    width: 80%;
+    max-width: 280px;
+  }
+}
