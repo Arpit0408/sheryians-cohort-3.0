@@ -12,6 +12,7 @@ const taskInput = document.querySelector(".task-input input");
 const taskCategory = document.querySelector("#taskCategory");
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+let editIndex = null;
 
 function updateUI() {
   const controls = document.querySelector(".task-controls");
@@ -50,7 +51,13 @@ themeToggle.addEventListener("click", () => {
   const isDark = document.body.classList.contains("dark");
   document.body.setAttribute("data-theme", isDark ? "dark" : "light");
   document.body.dataset.theme = isDark ? "dark" : "light";
-  themeIcon.textContent = isDark ? "light_mode" : "dark_mode";
+  
+  const currentIcon = themeToggle.querySelector("span");
+  const newIcon = document.createElement("span");
+  newIcon.className = "material-symbols-outlined";
+  newIcon.textContent = isDark ? "light_mode" : "dark_mode";
+  currentIcon.replaceWith(newIcon);
+
   localStorage.setItem("theme", isDark ? "dark" : "light");
   updateEmptyImage();
 });
@@ -77,7 +84,8 @@ function createTaskDOM(task, index) {
   const box = document.createElement("span");
   box.className = "box";
 
-  label.append(checkbox, box);
+  label.append(checkbox);
+  checkbox.after(box);
 
   const textSpan = document.createElement("span");
   textSpan.className = "task-text";
@@ -105,7 +113,9 @@ function createTaskDOM(task, index) {
   deleteBtn.append(deleteIcon);
 
   actions.append(editBtn, deleteBtn);
-  li.append(label, textSpan, categoryBadge, actions);
+  
+  li.append(label, textSpan, actions);
+  actions.before(categoryBadge);
 
   return li;
 }
@@ -128,18 +138,27 @@ taskForm.addEventListener("submit", (e) => {
   const value = taskInput.value.trim().replace(/\s+/g, " ");
   if (!value) return;
 
-  const newTask = {
-    id: Date.now(),
-    task: value,
-    completed: false,
-    category: taskCategory.value,
-  };
+  if (editIndex !== null) {
+    tasks[editIndex].task = value;
+    tasks[editIndex].category = taskCategory.value;
+    editIndex = null;
+    submitBtn.innerHTML = '<span class="material-symbols-outlined">add</span> Add';
+    saveTasks();
+    renderTasks();
+  } else {
+    const newTask = {
+      id: Date.now(),
+      task: value,
+      completed: false,
+      category: taskCategory.value,
+    };
 
-  tasks.unshift(newTask);
-  saveTasks();
+    tasks.unshift(newTask);
+    saveTasks();
 
-  const newLi = createTaskDOM(newTask, 0);
-  taskList.prepend(newLi);
+    const newLi = createTaskDOM(newTask, 0);
+    taskList.prepend(newLi);
+  }
 
   taskInput.value = "";
   taskCategory.value = "general";
@@ -159,46 +178,21 @@ taskList.addEventListener("click", (e) => {
     saveTasks();
     taskItem.remove();
     updateUI();
+    if (editIndex === index) {
+      editIndex = null;
+      taskInput.value = "";
+      taskCategory.value = "general";
+      submitBtn.innerHTML = '<span class="material-symbols-outlined">add</span> Add';
+    }
     return;
   }
 
   if (e.target.closest(".edit")) {
-    const textSpan = taskItem.querySelector(".task-text");
-    const originalText = tasks[index].task;
-
-    const editForm = document.createElement("form");
-    editForm.style.display = "flex";
-    editForm.style.flex = "1";
-
-    const input = document.createElement("input");
-    input.type = "text";
-    input.value = originalText;
-    input.style.width = "100%";
-    input.style.padding = "5px";
-
-    const editLabel = document.createElement("span");
-    editLabel.textContent = "Edit: ";
-
-    editForm.append(input);
-    input.before(editLabel);
-
-    textSpan.replaceWith(editForm);
-    input.focus();
-
-    const saveInline = () => {
-      const updated = input.value.trim();
-      if (updated) {
-        tasks[index].task = updated;
-        saveTasks();
-      }
-      renderTasks();
-    };
-
-    editForm.addEventListener("submit", (ev) => {
-      ev.preventDefault();
-      saveInline();
-    });
-    input.addEventListener("blur", saveInline);
+    taskInput.value = tasks[index].task;
+    taskCategory.value = tasks[index].category;
+    taskInput.focus();
+    editIndex = index;
+    submitBtn.innerHTML = '<span class="material-symbols-outlined">edit</span> Update';
     return;
   }
 });
@@ -226,6 +220,10 @@ taskList.addEventListener("change", (e) => {
   saveTasks();
   renderTasks();
 });
+
+// Demonstration: input.value is a dynamic property representing the live DOM text input content.
+// input.getAttribute("value") accesses the original initial HTML markup value, which remains static unless setAttribute is called.
+console.log("Input dynamic value vs static attribute demonstration initiated");
 
 const grandparent = document.querySelector(".layout");
 const parentContainer = document.querySelector(".content");
