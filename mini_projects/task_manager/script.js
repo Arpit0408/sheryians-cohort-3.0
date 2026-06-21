@@ -14,7 +14,14 @@ const taskCategory = document.querySelector("#taskCategory");
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
 function updateUI() {
-  emptyState.style.display = tasks.length === 0 ? "flex" : "none";
+  const controls = document.querySelector(".task-controls");
+  if (tasks.length === 0) {
+    emptyState.style.display = "flex";
+    if (controls) controls.style.display = "none";
+  } else {
+    emptyState.style.display = "none";
+    if (controls) controls.style.display = "flex";
+  }
 }
 
 menuBtn.addEventListener("click", () => {
