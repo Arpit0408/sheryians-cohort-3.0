@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Productivity Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="brand-header">
+            <span class="material-icons-outlined" style="font-size: 28px; color: var(--primary-accent);">space_dashboard</span>
+            <h1>Productivity Space</h1>
+        </div>
+
+        <div class="header-widgets">
+            <div class="widget-box">
+                <span class="material-icons-outlined">schedule</span>
+                <span id="live-time">--:--:--</span>
+            </div>
+
+            <div class="widget-box">
+                <span class="material-icons-outlined">calendar_today</span>
+                <span id="live-date">---, --- --</span>
+            </div>
+
+            <div class="widget-box">
+                <span class="material-icons-outlined">thermostat</span>
+                <span id="weather-temp">--°C</span>
+                <span id="weather-city" style="font-size: 12px; opacity: 0.8;">Loading...</span>
+            </div>
+
+            <button class="btn-icon-toggle" onclick="toggleTheme()" title="Toggle Theme">
+                <span class="material-icons-outlined" id="theme-icon">dark_mode</span>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <div class="cards-grid" id="dashboard-grid">
+            <div class="feature-card" onclick="showFeature('todo')">
+                <div class="card-icon-wrap">
+                    <span class="material-icons-outlined">check_box</span>
+                </div>
+                <div>
+                    <h3>Todo List</h3>
+                    <p>Manage daily tasks, mark priorities, and stay organized.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('planner')">
+                <div class="card-icon-wrap">
+                    <span class="material-icons-outlined">event_note</span>
+                </div>
+                <div>
+                    <h3>Daily Planner</h3>
+                    <p>Schedule your day hour by hour with time slot planning.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('goals')">
+                <div class="card-icon-wrap">
+                    <span class="material-icons-outlined">flag</span>
+                </div>
+                <div>
+                    <h3>Daily Goals</h3>
+                    <p>Track short-term daily targets and measure your completion rate.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('pomodoro')">
+                <div class="card-icon-wrap">
+                    <span class="material-icons-outlined">timer</span>
+                </div>
+                <div>
+                    <h3>Pomodoro Timer</h3>
+                    <p>Boost focus with 25-minute work intervals and break sessions.</p>
+                </div>
+            </div>
+
+            <div class="feature-card" onclick="showFeature('motivation')">
+                <div class="card-icon-wrap">
+                    <span class="material-icons-outlined">format_quote</span>
+                </div>
+                <div>
+                    <h3>Motivation Quote</h3>
+                    <p>Get inspired with daily motivational quotes fetched live.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-view" id="view-todo">
+            <div class="feature-view-header">
+                <h2>Todo List</h2>
+                <button class="btn-back" onclick="showDashboard()">
+                    <span class="material-icons-outlined">arrow_back</span>
+                    Back to Dashboard
+                </button>
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="todo-input" class="input-field" placeholder="Add a new task..." onkeydown="if(event.key==='Enter') addTodo()">
+                <button class="btn-primary" onclick="addTodo()">
+                    <span class="material-icons-outlined">add</span>
+                    Add Task
+                </button>
+            </div>
+
+            <ul class="task-list" id="todo-list">
+            </ul>
+        </div>
+
+        <div class="feature-view" id="view-planner">
+            <div class="feature-view-header">
+                <h2>Daily Planner</h2>
+                <button class="btn-back" onclick="showDashboard()">
+                    <span class="material-icons-outlined">arrow_back</span>
+                    Back to Dashboard
+                </button>
+            </div>
+
+            <div class="planner-grid" id="planner-slots">
+            </div>
+        </div>
+
+        <div class="feature-view" id="view-goals">
+            <div class="feature-view-header">
+                <h2>Daily Goals</h2>
+                <button class="btn-back" onclick="showDashboard()">
+                    <span class="material-icons-outlined">arrow_back</span>
+                    Back to Dashboard
+                </button>
+            </div>
+
+            <div class="progress-bar-wrap">
+                <div class="progress-bar-fill" id="goals-progress-bar"></div>
+            </div>
+            <p id="goals-progress-text" style="margin-bottom: 20px; font-size: 14px; color: var(--text-muted); font-weight: 500;">0 of 0 completed</p>
+
+            <div class="input-group">
+                <input type="text" id="goal-input" class="input-field" placeholder="Add a goal for today..." onkeydown="if(event.key==='Enter') addGoal()">
+                <button class="btn-primary" onclick="addGoal()">
+                    <span class="material-icons-outlined">add</span>
+                    Add Goal
+                </button>
+            </div>
+
+            <ul class="task-list" id="goals-list">
+            </ul>
+        </div>
+
+        <div class="feature-view" id="view-pomodoro">
+            <div class="feature-view-header">
+                <h2>Pomodoro Focus Timer</h2>
+                <button class="btn-back" onclick="showDashboard()">
+                    <span class="material-icons-outlined">arrow_back</span>
+                    Back to Dashboard
+                </button>
+            </div>
+
+            <div class="timer-box">
+                <p style="font-weight: 600; color: var(--primary-accent); margin-bottom: 12px;">WORK SESSION</p>
+                <div class="timer-display" id="timer-display">25:00</div>
+                <div class="timer-controls">
+                    <button class="btn-primary" id="timer-toggle-btn" onclick="toggleTimer()">Start Session</button>
+                    <button class="btn-back" onclick="resetTimer()">Reset</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-view" id="view-motivation">
+            <div class="feature-view-header">
+                <h2>Motivation Quote</h2>
+                <button class="btn-back" onclick="showDashboard()">
+                    <span class="material-icons-outlined">arrow_back</span>
+                    Back to Dashboard
+                </button>
+            </div>
+
+            <div class="quote-box">
+                <p class="quote-text" id="quote-text">"Loading quote..."</p>
+                <p class="quote-author" id="quote-author">-- Author</p>
+                <button class="btn-primary" style="margin: 0 auto;" onclick="getQuote()">
+                    <span class="material-icons-outlined">refresh</span>
+                    New Quote
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
