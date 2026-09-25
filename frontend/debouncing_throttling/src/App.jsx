@@ -1,9 +1,10 @@
 import React from "react";
+import Debouncing from "./Debouncing.jsx";
 
 const App = () => {
   return (
-    <div className="min-h-screen bg-slate-950 text-white">
-      <h1 className="text-3xl font-bold">Debounce</h1>
+    <div>
+      <Debouncing />
     </div>
   );
 };
