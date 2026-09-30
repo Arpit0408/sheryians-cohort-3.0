@@ -1,36 +1,35 @@
 const prompt = require('prompt-sync')();
-let n1 = Number(prompt("Enter the first number: "));
-let n2 = Number(prompt("Enter the second number: "));
-let op = prompt("Enter the operator (+, -, *, /, %): ");
+const n1 = Number(prompt("Enter 1st Number:"));
+const n2 = Number(prompt("Enter 2nd Number:"));
+const operators = prompt("Enter The Operator +, -, *,/, %");
+
 let result;
-if (isNaN(n1) || isNaN(n2)) {
+
+if (isNaN(n1) && isNaN(n2)) {
     result = "Invalid number input";
 }
-else if (!["+", "-", "*", "/", "%"].includes(op)) {
-    result = "Invalid operator";
+
+else if (!["+", "-", "*", "/", "%"].includes(operators)) {
+    result = "not an operator"
 }
+
 else {
-    switch (op) {
+    switch (operators) {
         case "+":
             result = n1 + n2;
             break;
-
         case "-":
             result = n1 - n2;
             break;
-
         case "*":
             result = n1 * n2;
             break;
-
         case "/":
-            result = n2 !== 0 ? n1 / n2 : "Cannot divide by zero";
+            result = n1 / n2;
             break;
-
         case "%":
-            result = n2 !== 0 ? n1 % n2 : "Cannot modulo by zero";
+            result = n1 % n2;
             break;
     }
 }
 console.log(result);
-

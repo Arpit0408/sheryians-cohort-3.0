@@ -1,12 +1,15 @@
-let secret = Math.floor(Math.random() * 100) + 1;
-let attempts = 0;
-let guess;
+let Secret = Math.floor(Math.random() * 10) + 1;
+const prompt = require('prompt-sync')();
+let num;
+let guesscount = 0;
+for (num = Number(prompt("Enter guess number:")); num !== Secret; num = Number(prompt("Enter guess number:"))) {
+    if (num < Secret) {
+        console.log("number is lesser");
 
-do {
-    guess = Number(prompt("Guess a number between 1 and 100:"));
-    attempts++;
-    if (guess > secret) console.log("Too high!");
-    else if (guess < secret) console.log("Too low!");
-} while (guess !== secret);
+    } else {
+        console.log("number is greater");
+    }
+    guesscount++;
+}
 
-console.log(`You got it in ${attempts} attempts!`);
+console.log("number matched", guesscount)

@@ -1,12 +1,13 @@
-let secret = Math.floor(Math.random() * 100) + 1;
-let attempts = 0;
-let guess;
+const prompt = require('prompt-sync')();
+const Temprature = Number(prompt("Enter temperature:"));
+let unit = prompt("Is it in C or F?").toUpperCase();
 
-do {
-    guess = Number(prompt("Guess a number between 1 and 100:"));
-    attempts++;
-    if (guess > secret) console.log("Too high!");
-    else if (guess < secret) console.log("Too low!");
-} while (guess !== secret);
+if (unit === "C") {
+    console.log(`${Temprature}°C = ${(Temprature * 9 / 5) + 32}°F`);
+} else if (unit === "F") {
+    console.log(`${Temprature}°F = ${((Temprature - 32) * 5 / 9).toFixed(2)}°C`);
+}
+else {
+    console.log("unit is wrong");
 
-console.log(`You got it in ${attempts} attempts!`);
+}

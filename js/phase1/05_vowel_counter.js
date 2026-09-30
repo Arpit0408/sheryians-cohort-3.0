@@ -1,12 +1,10 @@
-let secret = Math.floor(Math.random() * 100) + 1;
-let attempts = 0;
-let guess;
+const prompt = require('prompt-sync')();
+const string = prompt("Enter a string:").toLowerCase();
+const vowels = ["a", "e", "i", "o", "u"]
+let count = 0;
 
-do {
-    guess = Number(prompt("Guess a number between 1 and 100:"));
-    attempts++;
-    if (guess > secret) console.log("Too high!");
-    else if (guess < secret) console.log("Too low!");
-} while (guess !== secret);
+for (let char of string) {
+    if (vowels.includes(char)) count++;
+}
 
-console.log(`You got it in ${attempts} attempts!`);
+console.log(count);
