@@ -1,29 +1,23 @@
-// Data Types
+// data types
 
 // Create variables of type string, number, boolean, null, and undefined.
-const mystrType = "This is a string";
-const mynumType = 56;
-const mybooleanType = true;
-let myNull = null;
-let myUndefined = undefined;
-
-console.log(mystrType);
-console.log(mynumType);
-console.log(mybooleanType);
-console.log(myNull);
-console.log(myUndefined);
-
+const strval = "this is a string";
+const numval = 23;
+const boolval = true;
+const val = null;
+const unval = undefined;
 
 // Check the type of different variables using typeof.
-console.log(typeof (mynumType));
+console.log(typeof strval);
+console.log(typeof numval);
+console.log(typeof boolval);
+console.log(typeof val);
+console.log(typeof unval);
 
 // Store your mobile number in a variable and check its type.
-const mobilenum = 4152637852
-console.log(typeof (mobilenum));
-
-// Create a variable with value null and check its type.
-console.log(typeof (myNull));
+const mobilenum = 4152627852;
+console.log(typeof mobilenum);
 
 // Create a bigint number and print it.
-let bigNumber = 1234567890123456789012345678901234567890n;
+const bigNumber = 123456789012345678901234567890n;
 console.log(bigNumber);
