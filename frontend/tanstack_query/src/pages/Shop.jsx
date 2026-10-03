@@ -1,27 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { axiosInstance } from "../config/axiosInstance";
+import React, { useState } from "react";
 import ProductCard from "../components/ProductCard";
 import ProductCardSkeleton from "../components/ProductSkeletonCard";
-
+import { useProductsApi } from "../hooks/useProductsApi";
+import Filter from "../components/Filter";
 const Shop = () => {
-  const [productsData, setProductsData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const GetProducts = async () => {
-    try {
-      setLoading(true);
-      const proData = await axiosInstance.get("/products");
-      setProductsData(proData.data);
-    } catch (error) {
-      console.error("Failed to fetch products:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    GetProducts();
-  }, []);
+  const [search, setSearch] = useState("");
+  let { isPending, data, error } = useProductsApi(search);
 
   return (
     <div className="min-h-screen bg-neutral-50 px-4 py-8 dark:bg-neutral-950 sm:px-6 lg:px-8">
@@ -32,19 +16,17 @@ const Shop = () => {
             Explore Products
           </h1>
           <p className="mt-1 text-sm text-neutral-500 dark:text-neutral-400">
-            Browse our latest collection from FakeStore API
+            Browse our latest collection of products
           </p>
         </div>
-
+        <Filter search={search} setSearch={setSearch} />
         {/* Responsive Grid */}
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          {loading
+          {isPending
             ? Array.from({ length: 8 }).map((_, index) => (
                 <ProductCardSkeleton key={index} />
               ))
-            : productsData?.map((pro) => (
-                <ProductCard key={pro.id} product={pro} />
-              ))}
+            : data?.map((pro) => <ProductCard key={pro.id} product={pro} />)}
         </div>
       </div>
     </div>
@@ -52,4 +34,3 @@ const Shop = () => {
 };
 
 export default Shop;
-

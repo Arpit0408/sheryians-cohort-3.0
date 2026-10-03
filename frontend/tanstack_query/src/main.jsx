@@ -3,12 +3,23 @@ import { createRoot } from "react-dom/client";
 import AppRoutes from "./routes/AppRoutes.jsx";
 import { Provider } from "react-redux";
 import { AuthStore } from "./app/AuthStore";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from "@tanstack/react-query";
 import "./index.css";
+
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <Provider store={AuthStore}>
-      <AppRoutes />
-    </Provider>
+    <QueryClientProvider client={queryClient}>
+      <Provider store={AuthStore}>
+        <AppRoutes />
+      </Provider>
+    </QueryClientProvider>
   </StrictMode>,
 );
