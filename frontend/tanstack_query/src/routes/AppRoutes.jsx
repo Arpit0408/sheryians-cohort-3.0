@@ -4,6 +4,8 @@ import AuthLayout from "../layouts/AuthLayout";
 import MainLayout from "../layouts/MainLayout";
 import Login from "../pages/Login.jsx";
 import Register from "../pages/Register.jsx";
+import Shop from "../pages/Shop.jsx";
+import About from "../pages/About.jsx";
 import App from "../App.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -61,6 +63,14 @@ const AppRoutes = () => {
             {
               path: "",
               element: <App />,
+            },
+            {
+              path: "shop",
+              element: <Shop />,
+            },
+            {
+              path: "about",
+              element: <About />,
             },
           ],
         },
