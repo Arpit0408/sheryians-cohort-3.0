@@ -13,7 +13,7 @@ export const loginUserApi = async (credentials) => {
 
 export const hydrateUser = async () => {
   let token = localStorage.getItem("accessToken");
-
+  if (!token) return null;
   try {
     let res = await api.get("/auth/me", {
       headers: {
@@ -24,5 +24,7 @@ export const hydrateUser = async () => {
     return res.data;
   } catch (error) {
     console.log("error in login api", error);
+    localStorage.removeItem("accessToken");
+    return null;
   }
 };

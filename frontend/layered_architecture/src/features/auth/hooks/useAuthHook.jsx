@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router";
 import { loginUserApi } from "../api/authApi";
-import { addUser } from "../state/authSlice";
+import { loginUserAction } from "../state/authAction";
 
 export const useAuth = () => {
   let navigate = useNavigate();
@@ -16,16 +16,10 @@ export const useAuth = () => {
     formState: { errors },
   } = useForm();
 
-  const loginForm = async (data) => {
-    console.warn("LOGIN SUCCESS DATA:", data);
-    let res = await loginUserApi(data);
-    if (res) {
-      dispatch(addUser(res));
-      navigate("/main");
-    }
+  const loginForm = (data) => {
+    dispatch(loginUserAction(data));
   };
   const [showPassword, setShowPassword] = useState(false);
-
   return {
     navigate,
     register,

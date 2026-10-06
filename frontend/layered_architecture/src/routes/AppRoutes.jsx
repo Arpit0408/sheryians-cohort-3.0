@@ -5,8 +5,7 @@ import RegisterPage from "../features/auth/ui/pages/RegisterPage";
 import AuthLayout from "../app/layout/AuthLayout";
 import MainLayout from "../app/layout/MainLayout";
 import { useDispatch } from "react-redux";
-import { hydrateUser } from "../features/auth/api/authApi";
-import { addUser } from "../features/auth/state/authSlice";
+import { hydrateUserAction } from "../features/auth/state/authAction";
 import MainProtected from "./protected/MainProtected";
 import PublicProtected from "./protected/PublicProtected";
 
@@ -14,16 +13,7 @@ const AppRoutes = () => {
   let dispatch = useDispatch();
 
   useEffect(() => {
-    (async () => {
-      try {
-        let user = await hydrateUser();
-        if (user) {
-          dispatch(addUser(user));
-        }
-      } catch (error) {
-        console.log("error in hydration..", error);
-      }
-    })();
+    dispatch(hydrateUserAction());
   }, [dispatch]);
 
   let router = createBrowserRouter([
@@ -62,4 +52,3 @@ const AppRoutes = () => {
 };
 
 export default AppRoutes;
-
