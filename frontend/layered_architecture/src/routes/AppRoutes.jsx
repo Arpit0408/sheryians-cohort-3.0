@@ -8,7 +8,9 @@ import { useDispatch } from "react-redux";
 import { hydrateUserAction } from "../features/auth/state/authAction";
 import MainProtected from "./protected/MainProtected";
 import PublicProtected from "./protected/PublicProtected";
-
+import About from "../shared/ui/pages/About";
+import HomePage from "../shared/ui/pages/HomePage";
+import ProductPage from "../features/products/ui/pages/ProductPage";
 const AppRoutes = () => {
   let dispatch = useDispatch();
 
@@ -42,7 +44,20 @@ const AppRoutes = () => {
         {
           path: "/main",
           element: <MainLayout />,
-          children: [],
+          children: [
+            {
+              path: "",
+              element: <HomePage />,
+            },
+            {
+              path: "about",
+              element: <About />,
+            },
+            {
+              path: "product",
+              element: <ProductPage />,
+            },
+          ],
         },
       ],
     },

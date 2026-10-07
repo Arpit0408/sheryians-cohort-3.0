@@ -1,14 +1,16 @@
 import React from "react";
 import { Outlet } from "react-router";
-import Navbar from "../../../shared/ui/components/Navbar.jsx";
+import Navbar from "../../shared/ui/components/Navbar.jsx";
+import Footer from "../../shared/ui/components/Footer.jsx";
 
 const MainLayout = () => {
   return (
-    <div className="p-2">
+    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col justify-between">
       <Navbar />
-      <div className="p-4">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8">
         <Outlet />
-      </div>
+      </main>
+      <Footer />
     </div>
   );
 };
