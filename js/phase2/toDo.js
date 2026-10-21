@@ -1,36 +1,26 @@
 let toDos = [];
 
-function addToDo(task) {
-    toDos.push({ id: toDos.length + 1, task, done: false });
-};
-
-function completeTodo(id) {
-    let todo = toDos.find(t => t.id === id);
-    if (todo) {
-        todo.done = true;
-    }
+function addTodo(task) {
+  toDos.push({ id: toDos.length + 1, task, done: false });
 }
 
-function removeTodo(id) {
-    let toDo = toDos.filter(t => t.id !== id);
+function CompleteTodo(tid) {
+  let todo = toDos.find((u) => u.id === tid);
+  if (todo) {
+    todo.done = true;
+  }
 }
 
-function updateTodo(id, value) {
-    let toDo = toDos.find(t => t.id === id)
-    if (toDo) {
-        toDo.task = value;
-    }
+function deleteTodo(id) {
+  toDos = toDos.filter((t) => t.id != id);
 }
 
-function showTodos() {
-    toDos.forEach(t => {
-        console.log(`${t.id}. [${t.done ? "x" : " "}] ${t.task}`);
-    });
+function ShowTodo() {
+  toDos.forEach((t) => {
+    console.log(`${t.id}. [${t.done ? "X" : ""}] ${t.task}`);
+  });
 }
 
-addToDo("Learn JS");
-addToDo("Build a project");
-addToDo("Sleep");
-updateTodo(1, "updatedTodo")
-// completeTodo(1);
-showTodos();
+addTodo("dskghkdjsf");
+CompleteTodo(1);
+ShowTodo();
