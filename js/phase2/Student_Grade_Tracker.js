@@ -1,11 +1,11 @@
 let students = [
-  { name: "Aman", marks: [80, 90, 75] },
-  { name: "Priya", marks: [95, 85, 92] },
+  { name: "Aman", marks: [90, 90, 95] },
+  { name: "Priya", marks: [85, 75, 52] },
   { name: "Raj", marks: [60, 55, 70] },
 ];
 
 function getAverage(marks) {
-  return marks.reduce((acc, marks) => acc + marks, 0) / marks.length;
+  return marks.reduce((sum, m) => (sum += m), 0) / marks.length;
 }
 
 function getGrade(avg) {
@@ -15,7 +15,9 @@ function getGrade(avg) {
   return "F";
 }
 
-students.forEach((e) => {
-  let avg = getAverage(e.marks);
-  console.log(`Grade of ${e.name} is ${getGrade(avg)}`);
+students.forEach((std) => {
+  let avgmrks = getAverage(std.marks);
+  console.log(
+    `Average Marks of ${std.name} is ${avgmrks} and grade is ${getGrade(avgmrks)}`,
+  );
 });
